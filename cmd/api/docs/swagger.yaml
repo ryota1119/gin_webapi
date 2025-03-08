@@ -1,0 +1,84 @@
+basePath: /
+definitions:
+  domain.Post:
+    properties:
+      id:
+        type: integer
+      text:
+        type: string
+      title:
+        type: string
+      userID:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Ginを使ったWebAPIのSwaggerドキュメント
+  title: Gin WebAPI Example
+  version: "1.0"
+paths:
+  /auth/register:
+    post:
+      description: 新規ユーザーを作成
+      responses:
+        "200":
+          description: OK
+      summary: 新規ユーザーを作成
+      tags:
+      - users
+  /posts:
+    get:
+      description: 全ての記事を取得する
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Post'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 記事一覧の取得
+      tags:
+      - posts
+    post:
+      consumes:
+      - application/json
+      description: 新しい記事を作成する
+      parameters:
+      - description: 記事データ
+        in: body
+        name: post
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Post'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Post'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: 記事の作成
+      tags:
+      - posts
+swagger: "2.0"
