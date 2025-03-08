@@ -40,7 +40,7 @@ services:
   schemaspy:
     image: schemaspy/schemaspy:snapshot
     volumes:
-      - ./schemaspy/output:/output
+      - ./docs:/output
       - ./schemaspy/schemaspy.properties:/schemaspy.properties
     depends_on:
       - mysql
